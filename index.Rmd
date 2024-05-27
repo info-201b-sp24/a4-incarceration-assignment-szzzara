@@ -1,71 +1,77 @@
 ---
-title: "A3: Incarceration"
+title: "A3: Incarceration in the U.S."
+author: "Sara Yi"
 output: html_document
 ---
 
 ### Introduction
-
-An introduction of the problem domain and a description of the variable(s) you are choosing to analyze (and why!)
+Racism is still a rampant issue in the United States. One of the prime pitfalls
+of this system is injustice is the United States prison system. For example, 
+certain communities are over-policed. The Vera Institute studied just this. In this report, I analyzed the incarceration data collected by Vera Institute
+to create charts that display this inequity. 
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
+**5 values calculated from my summary information R script:**
 
-These will likely be calculated using your DPLYR skills, answering questions such as: 
+- *Race with the highest total prison population:*
+'r prison_pop %>% summarize(across(ends_with("_prison_pop"), sum, na.rm = TRUE)) %>% gather(key = "race", value = "total") %>% arrange(desc(total)) %>% slice(1) %>% pull(race)'
 
-- What is the average value of my variable across all the counties (in the current year)?
-- Where is my variable the highest / lowest?
-- How much has my variable change over the last N years?
+- *Highest prison population county:*
+'r prison_pop %>% filter(total_prison_pop == max(total_prison_pop, na.rm = TRUE)) %>% pull(county_name)'
 
-Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
+- *Lowest prison population county:*
+'r prison_pop %>% filter(total_prison_pop == min(total_prison_pop, na.rm = TRUE)) %>% pull(county_name)'
+
+- *County with the lowest prison population:*
+'r prison_pop %>% filter(total_prison_pop == min(total_prison_pop, na.rm = TRUE)) %>% pull(county_name)'
+
+- *County with the highest prison population:*q
+'r prison_pop %>% filter(total_prison_pop == max(total_prison_pop, na.rm = TRUE)) %>% pull(county_name)'
+
 
 ### The Dataset
 
-Who collected the data?  
-How was the data collected or generated?  
-Why was the data collected?  
-How many observations (rows) are in your data?  
-How many features (columns) are in the data?  
-What, if any, ethical questions or questions of power do you need to consider when working with this data?  
-What are possible limitations or problems with this data?   (at least 200 words)
+- **Who collected the data?**  
+
+    The data was collected by the Vera Institute.
+
+- **How was the data collected or generated?**  
+
+    It was collected through public records, surveys, etc.
+
+- **Why was the data collected?**  
+
+    It was collected to analyze patterns of incarceration through a social justice lense.
+
+- **How many observations (rows) are in your data?**  
+
+    47976 observations
+
+- **How many features (columns) are in the data?**  
+
+    39 columns
+
+- **What, if any, ethical questions or questions of power do you need to consider when working with this data?**
+
+    Of course when dealing with systems of society, we need to acknowledge ethical questions of race, racial disparity, history, and more. 
+
+- **What are possible limitations or problems with this data?** 
+
+    There are many possible limitations or problems. For instance, as discussed in our class readings, there is always the debate over whether strictly numerical data will ever be the right way, since humanity is inherently emotional and empathy is necessary to be just for all. Statistically, some limitations or problems could be that there were a lot of NA values, and of course there are definitely cases of incarceration that are not covered by the Vera Institute. Since the prison systme is so widespread and huge, it is probably difficult to account for every single person.
+
 
 
 ### Trends Over Time Chart
+![Trends Over Time Chart](line_chart.png)
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The first chart that you will create and include will show the trend over time of your variable/topic. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - This may mean showing the same measure for different locations or different racial groups. Think carefully about a meaningful comparison of locations (e.g., the top 10 counties in a state, top 10 states, etc.)
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart1_example.R")}
-```
+I included this chart because it shows the sheer difference between prison populations between black and white people. The x-axis is time, so the reader can see the progression of time and how the y-axis variable, prison population, shifts. As you can see, there is a constant trend of black populations being heavily more imprisoned than the white counterparts, suggesting over-policing in the United States. 
 
 ### Variable Comparison Chart
+![Variable Comparison Chart](bar_chart.png)
+My next chart is a bar chart. I was inspired by the redlining topic from our lectures and reading, so I compared 4 variables-- rural, small/mid cities, suburban, and urban areas. It's interesting to see how racism can even play a factor in regions and housing. I decided to focus on the the total prison population in the US as a whole, and to see what kind of regions would have the most prison inmates. The pattern depicted in the data shows that urban areas have the most prison population, which is interesting because on average, the more rural an area is, the less diverse it will be. Urban areas have the greatest diversity.
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The second chart that you will create and include will show how two different (continuous) variables are related to one another. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
 
 ### Map
-
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The last chart that you will create and include will show how a variable is distributed geographically. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Your map needs a title
-- Your color scale needs a legend with a clear label
-- Use a map based coordinate system to set the aspect ratio of your map
-
+![Map Chart](map.png)
+For my last chart, I wanted to depict the United States prison population through a heat map to show the concentration of prison population. Kind of similar to the bar graph, it shows that areas that are more populated have a higher prison population.
